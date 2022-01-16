@@ -1,32 +1,69 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="display">
+    <input type="text" v-model.number="op1">
+    <input type="text" v-model.number="op2"> = {{sum}}
     </div>
-    <router-view/>
+    <div class="keyboard">
+      <button @click="plus">+</button>
+      <button @click="minus">-</button>
+      <button @click="multy">*</button>
+      <button @click="div" v-bind:disabled="op2 === 0">/</button>
+      <button @click="step">**</button>
+      <button @click="int">int</button>
+
+
+    </div>
+
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+export default {
+  
+  data(){
+    return{
+      op1:0,
+      op2:0,
+      sum:null
     }
+  },
+  methods:{
+    plus(){
+       this.sum = this.op1 + this.op2
+    },
+    minus(){
+       this.sum = this.op1 - this.op2
+    },
+    multy(){
+       this.sum = this.op1 * this.op2
+    },
+    div(){
+      if (this.op2 === 0){
+         this.sum = "деление на 0 запрещено"
+      }
+       this.sum = this.op1 / this.op2
+    },
+    step(){
+       this.sum = this.op1 ** this.op2
+    },
+    int(){
+       this.sum = Math.floor((this.op1/ this.op2))
+    }
+
+    
   }
 }
+</script>
+
+</script>
+<style lang="scss">
+#app{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 200px;
+}
+
 </style>
